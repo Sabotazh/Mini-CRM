@@ -28,7 +28,14 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        }
     }
 
     /**
@@ -52,7 +59,16 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $input = $request->all();
+
+        if ($image = $request->file('logo')) {
+            $destinationPath = 'logos/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        } else {
+            unset($input['image']);
+        }
     }
 
     /**
