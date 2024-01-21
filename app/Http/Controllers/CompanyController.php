@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $companies = Company::query()->paginate(10);
+
+        return 'admin' === Auth::user()->role
+            ? view('company.index', compact('companies'))
+                ->with('i', (request()->input('page', 1) - 1) * 10)
+            : view('employee.dashboard');
     }
 
     /**
