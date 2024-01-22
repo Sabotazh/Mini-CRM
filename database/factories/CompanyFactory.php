@@ -15,8 +15,8 @@ class CompanyFactory extends Factory
         return [
             'name' => fake()->company(),
             'email' => fake()->unique()->safeEmail(),
-            'logo' => null,
-//            'logo' => fake()->image(public_path('logos'), 400,400, null, false),
+//            'logo' => null,
+            'logo' => fake()->image(public_path('logos'), 400,400, null, false),
 //            'logo' => fake()->image(storage_path('logos'), 400,400, null, false),
             'website' => fake()->unique()->url(),
         ];
